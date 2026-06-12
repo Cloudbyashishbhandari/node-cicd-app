@@ -49,8 +49,8 @@ jobs:
             password: ${{ secrets.DOCKER_PASSWORD }}
         - name: build docker image
           run: |
-            docker build -t ashish00234/node-app:v1.0 .
-            docker push ashish00234/node-app:v1.0 
+            docker build -t ashish00234/node-app:v2.0 .
+            docker push ashish00234/node-app:v2.0 
 
 
 
