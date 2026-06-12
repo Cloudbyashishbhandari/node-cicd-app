@@ -16,3 +16,6 @@ jobs:
             node-version: '22'
         - name: install dependencies
           run : npm install
+        - name: build
+          run:  npm run build
+
