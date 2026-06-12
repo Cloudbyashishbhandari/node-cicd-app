@@ -23,6 +23,14 @@ jobs:
           with:
             name: build-file
             path: build
+  test:
+    runs-on: ubuntu-latest
+    need: build
+    steps:
+        - uses: action/download-artifact@4
+          with:
+            name: build-file
+        - run: echo "Running tests"
 
 
 
