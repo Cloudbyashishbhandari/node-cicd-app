@@ -1,0 +1,16 @@
+name: node-ci/cd
+on:
+  push:
+    branches:
+        - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v5
+        - name: use node 22
+          uses: actions/setup-node@v3
+          with:
+            node-version: '22'
+        - name: install dependencies
+          run : npm install
