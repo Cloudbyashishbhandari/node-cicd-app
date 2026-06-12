@@ -31,6 +31,13 @@ jobs:
           with:
             name: build-file
         - run: echo "Running tests"
+  Docker-build:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+        - uses: actions/checkout@v5
+        - name: build docker image
+          run: docker build -t node-app:v1.0 .
 
 
 
