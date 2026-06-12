@@ -25,7 +25,7 @@ jobs:
             path: build
   test:
     runs-on: ubuntu-latest
-    need: build
+    needs: build
     steps:
         - uses: action/download-artifact@4
           with:
