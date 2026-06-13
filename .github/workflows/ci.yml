@@ -77,10 +77,10 @@ jobs:
     deploy-prod:
       runs-on: ubuntu-latest
       needs: Docker-build
-        steps:
+      steps:
            - name: deploy to prod server
              if : github.ref == 'ref/heads/master'
-              run: |
+             run: |
                 ssh -o StrictHostCheacking=no ubuntu@13.60.236.129
                 docker pull ashish00234/node-app:v2.0
                 docker run -d --name node-app -p 3000:3000 ashish00234/node-app:v2.0
