@@ -4,6 +4,7 @@ env:
 on:
   push:
     branches:
+        - develop
         - master
 jobs:
   build:
@@ -51,6 +52,40 @@ jobs:
           run: |
             docker build -t ashish00234/node-app:v2.0 .
             docker push ashish00234/node-app:v2.0 
+    aws-login:
+    needs: Docker-build
+    runs-on: ubuntu-latest
+    steps:
+        - name: aws-login
+          uses: aws-actions/configure-aws-credintials@v2
+          with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-access-key-secret: ${{ secrets.AWS_SECRET_ACCCESS_KEY }}
+            aws-region: eu-north-1
+    deploy-dev:
+      runs-on: ubuntu-latest
+      needs: Docker-build
+      steps: 
+          - name: deploy to dev server
+            if : github.ref == 'ref/heads/develop'
+            run: |
+              ssh -o StrictHostChecking=no ubuntu@51.20.3.79 
+              docker pull ashish00234/node-app:v2.0
+              docker run -d -p 3000:3000 --name node-app ashish00234/node-app:v2.0
+              docker run node-app
+
+    deploy-prod:
+      runs-on: ubuntu-latest
+      needs: Docker-build
+        steps:
+           - name: deploy to prod server
+             if : github.ref == 'ref/heads/master'
+              run: |
+                ssh -o StrictHostCheacking=no ubuntu@13.60.236.129
+                docker pull ashish00234/node-app:v2.0
+                docker run -d --name node-app -p 3000:3000 ashish00234/node-app:v2.0
+                docker run node-app
+
 
 
 
