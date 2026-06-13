@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: build-file
+          name: build-file-${{ matrix.os }}
       - uses: actions/setup-node@v5
         with:
           node-version: ${{matrix.node-version}}    
