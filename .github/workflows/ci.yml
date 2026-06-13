@@ -66,13 +66,13 @@ jobs:
     needs: Docker-build
     steps: 
         - name: deploy to dev server
-          if : github.ref == 'ref/heads/develop'
+          if: github.ref == 'refs/heads/develop'
           run: |
-              ssh -o StrictHostChecking=no ubuntu@51.20.3.79 << 'EOF'
+              ssh -o StrictHostKeyChecking=no ubuntu@51.20.3.79 << 'EOF'
               sudo apt update -y
               sudo apt install docker.io -y
               sudo systemctl start docker 
-              docker pull ashish00234/node-app:v2.0
+              sudo docker pull ashish00234/node-app:v2.0
               docker run -d -p 3000:3000 --name node-app ashish00234/node-app:v2.0
               EOF
            
@@ -82,12 +82,12 @@ jobs:
     needs: Docker-build
     steps:
         - name: deploy to prod server
-          if : github.ref == 'ref/heads/master'
+          if: github.ref == 'refs/heads/master'
           run: |
-                ssh -o StrictHostCheacking=no ubuntu@13.60.236.129 << 'EOF'
-                docker pull ashish00234/node-app:v2.0
-                docker run -d --name node-app -p 3000:3000 ashish00234/node-app:v2.0
-                docker run node-app
+                ssh -o StrictHostKeyChecking=no ubuntu@13.60.236.129 << 'EOF'
+                sudo docker pull ashish00234/node-app:v2.0
+                sudo docker run -d --name node-app -p 3000:3000 ashish00234/node-app:v2.0
+                sudo docker run node-app
                 EOF
 
 
