@@ -27,6 +27,7 @@ jobs:
     #         name: build-file
     #         path: build
   test:
+      needs: build
       uses: ./.github/workflows/test.yml
     # runs-on: ubuntu-latest
 
