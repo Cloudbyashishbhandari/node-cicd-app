@@ -75,7 +75,7 @@ jobs:
             aws-region: eu-north-1
   
   deploy-staging:
-     needs: [ aws-login, Ssh-login ]
+     needs: [ aws-login ]
      runs-on: ubuntu-latest
      environment: staging-2 
      steps:
