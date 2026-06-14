@@ -81,7 +81,7 @@ jobs:
      steps:
         - uses: actions/checkout@v5
         - uses: ./.github/actions/setup-ssh
-          with: 
+          env: 
             ssh-key: ${{ secrets.EC2_SSH_KEY }}
         - run: |
             ssh -o StrictHostKeyChecking=no -i private-key ubuntu@16.170.212.192 << 'EOF'
@@ -96,7 +96,7 @@ jobs:
      steps:
         - uses: actions/checkout@v5
         - uses: ./.github/actions/setup-ssh
-          with: 
+          env: 
             ssh-key: ${{ secrets.EC2_SSH_KEY }}
         - run: |
             ssh -o StrictHostKeyChecking=no -i private-key ubuntu@16.171.136.29 << 'EOF'
