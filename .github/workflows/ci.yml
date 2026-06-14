@@ -79,10 +79,7 @@ jobs:
      runs-on: ubuntu-latest
      environment: staging-2 
      steps:
-        - name: ssh-login
-          run: |
-            echo "${{ secrets.EC2_SSH_KEY }}" > private-key
-            chmod 600 private-key
+        - uses: ./.github/workflows/actions/setup-ssh/ssh-key.yml
         - run: |
             ssh -o StrictHostKeyChecking=no -i private-key ubuntu@13.60.65.104 << 'EOF'
             sudo su
@@ -94,6 +91,7 @@ jobs:
      runs-on: ubuntu-latest
      environment: production
      steps:
+        - uses: ./.github/workflows/actions/setup-ssh/ssh-key.yml
         - run: |
             ssh -o StrictHostKeyChecking=no -i private-key ubuntu@13.61.175.132 << 'EOF'
             sudo su
