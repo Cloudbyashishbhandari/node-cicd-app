@@ -100,7 +100,7 @@ jobs:
           with: 
             ssh-key: ${{ secrets.EC2_SSH_KEY }}
         - run: |
-            ssh -o StrictHostKeyChecking=no -i private-key ubuntu@16.171.136.29 << 'EOF'
+            ssh -o StrictHostKeyChecking=no -i ashish_login.pem ubuntu@16.171.136.29 << 'EOF'
             sudo su
             sudo docker pull ashish00234/node-app:v2.0
             sudo docker run -d --name node-app -p 3000:3000 ashish00234/node-app:v2.0
