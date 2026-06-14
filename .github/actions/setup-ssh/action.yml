@@ -7,5 +7,5 @@ runs:
   steps:
     - shell: bash
       run: |
-        echo "${{ secrets.EC2_SSH_KEY }}" > ashish_login.pem
+        echo "${{ inputs.ssh-key }}" > ashish_login.pem
         chmod 600 ashish_login.pem
