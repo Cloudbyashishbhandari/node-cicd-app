@@ -9,7 +9,7 @@ on:
 jobs:
   deploy-staging:
      runs-on: ubuntu-latest
-     environment: staging
+     environment: staging-2 
      steps:
         - run: echo " deploying staaging "
   build:
@@ -79,7 +79,7 @@ jobs:
             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             aws-region: eu-north-1
   deploy-production:
-     needs: staging-deploy
+     needs: deploy-staging
      runs-on: ubuntu-latest
      environment: production
      steps:
