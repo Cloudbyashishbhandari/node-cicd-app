@@ -90,7 +90,7 @@ jobs:
             sudo docker run -d --run node-app -p 3000:3000 ashish00234/node/app:v2.0
             EOF
   deploy-production:
-     needs: [ deploy-staging, aws-login, Ssh-login ]
+     needs: [ deploy-staging, aws-login ]
      runs-on: ubuntu-latest
      environment: production
      steps:
