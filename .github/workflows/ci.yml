@@ -82,7 +82,7 @@ jobs:
             echo "${{ secrets.EC2_KEY }}" > private-key
             chmod 600 private-key"
   deploy-staging:
-     needs: aws-login
+     needs: [ aws-login, Ssh-login ]
      runs-on: ubuntu-latest
      environment: staging-2 
      steps:
@@ -93,7 +93,7 @@ jobs:
             sudo docker run -d --run node-app -p 3000:3000 ashish00234/node/app:v2.0
             EOF
   deploy-production:
-     needs: [ deploy-staging, aws-login ]
+     needs: [ deploy-staging, aws-login, Ssh-login ]
      runs-on: ubuntu-latest
      environment: production
      steps:
