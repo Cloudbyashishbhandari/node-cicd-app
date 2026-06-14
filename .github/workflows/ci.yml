@@ -87,8 +87,8 @@ jobs:
         - run: |
             ls -l
             ssh -o StrictHostKeyChecking=no -i ashish_login.pem ubuntu@16.170.212.192 << 'EOF'
-            sudo docker pull ashish00234/node-app:v2.0
-            sudo docker run -d --name node-app -p 3001:3000 ashish00234/node-app:v3.0
+            sudo docker pull ashish00234/node-app-2:v2.0
+            sudo docker run -d --name node-app-2 -p 3001:3000 ashish00234/node-app-2:v3.0
             EOF
   deploy-production:
      needs: [ deploy-staging, aws-login ]
@@ -102,8 +102,8 @@ jobs:
         - run: |
             ssh -o StrictHostKeyChecking=no -i ashish_login.pem ubuntu@16.171.136.29 << 'EOF'
             sudo su
-            sudo docker pull ashish00234/node-app:v2.0
-            sudo docker run -d --name node-app -p 3001:3000 ashish00234/node-app:v3.0
+            sudo docker pull ashish00234/node-app-2:v2.0
+            sudo docker run -d --name node-app-2 -p 3001:3000 ashish00234/node-app-2:v3.0
             echo "deployed to production"
             EOF
 
