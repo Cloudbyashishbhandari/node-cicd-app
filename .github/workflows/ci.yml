@@ -79,23 +79,23 @@ jobs:
      environment: staging-2 
      steps:
         - run: |
-          ssh -o StrictHostKeyChecking=no -i ${{ secrets.EC2_KEY }} ubuntu@13.60.65.104 << 'EOF'
-          sudo su
-          sudo docker pull ashish00234/node-app:v2.0
-          sudo docker run -d --run node-app -p 3000:3000 ashish00234/node/app:v2.0
-          EOF
+            ssh -o StrictHostKeyChecking=no -i ${{ secrets.EC2_KEY }} ubuntu@13.60.65.104 << 'EOF'
+            sudo su
+            sudo docker pull ashish00234/node-app:v2.0
+            sudo docker run -d --run node-app -p 3000:3000 ashish00234/node/app:v2.0
+            EOF
   deploy-production:
      needs: [ deploy-staging, aws-login ]
      runs-on: ubuntu-latest
      environment: production
      steps:
         - run: |
-          ssh -o StrictHostKeyChecking=no -i ${{ secrets.EC2_KEY }} ubuntu@13.61.175.132 << 'EOF'
-          sudo su
-          sudo docker pull ashish00234/node-app:v2.0
-          sudo docker run -d --run node-app -p 3000:3000 ashish00234/node/app:v2.0
-          EOF
-          
+            ssh -o StrictHostKeyChecking=no -i ${{ secrets.EC2_KEY }} ubuntu@13.61.175.132 << 'EOF'
+            sudo su
+            sudo docker pull ashish00234/node-app:v2.0
+            sudo docker run -d --run node-app -p 3000:3000 ashish00234/node/app:v2.0
+            EOF
+            
 
 
 
