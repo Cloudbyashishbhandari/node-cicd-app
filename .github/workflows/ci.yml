@@ -73,13 +73,21 @@ jobs:
             aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             aws-region: eu-north-1
+  Ssh-login:
+  needs: aws-login
+  runs-on: ubuntu-latest
+  steps:
+    - name: ssh-login
+      run: |
+        echo "${{ secrets.EC2_KEY }}" > private-key
+        chmod 600 private-key"
   deploy-staging:
      needs: aws-login
      runs-on: ubuntu-latest
      environment: staging-2 
      steps:
         - run: |
-            ssh -o StrictHostKeyChecking=no -i ${{ secrets.EC2_KEY }} ubuntu@13.60.65.104 << 'EOF'
+            ssh -o StrictHostKeyChecking=no -i private-key ubuntu@13.60.65.104 << 'EOF'
             sudo su
             sudo docker pull ashish00234/node-app:v2.0
             sudo docker run -d --run node-app -p 3000:3000 ashish00234/node/app:v2.0
@@ -90,7 +98,7 @@ jobs:
      environment: production
      steps:
         - run: |
-            ssh -o StrictHostKeyChecking=no -i ${{ secrets.EC2_KEY }} ubuntu@13.61.175.132 << 'EOF'
+            ssh -o StrictHostKeyChecking=no -i private-key ubuntu@13.61.175.132 << 'EOF'
             sudo su
             sudo docker pull ashish00234/node-app:v2.0
             sudo docker run -d --run node-app -p 3000:3000 ashish00234/node/app:v2.0
