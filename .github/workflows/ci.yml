@@ -1,4 +1,5 @@
 name: node-ci/cd
+
 env:
    FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 on:
@@ -6,6 +7,11 @@ on:
     branches:
         - master
 jobs:
+  deploy-staging:
+     runs-on: ubuntu-latest
+     environment: staging
+     steps:
+        - run: echo " deploying staaging "
   build:
       uses: ./.github/workflows/build.yml
     # runs-on: ubuntu-latest
@@ -51,7 +57,7 @@ jobs:
         - uses: actions/checkout@v5
         - uses: actions/download-artifact@v4
           with:
-            name: build-file
+            name: build-file-${{ matrix.os}}
 
         - name: docker-loginn
           uses: docker/login-action@v3
@@ -62,6 +68,22 @@ jobs:
           run: |
             docker build -t ashish00234/node-app:v2.0 .
             docker push ashish00234/node-app:v2.0 
+  aws-login:
+    runs-on: ubuntu-latest
+    needs: docker-build
+    steps:
+        - name: aws-login
+          uses: aws-actions/configure-aws-credentials@v3
+          with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: eu-north-1
+  deploy-production:
+  needs: staging-deploy
+  runs-on: ubuntu-latest
+  environment: production
+  steps:
+     - run: echo "Deploying to production"
 
 
 
