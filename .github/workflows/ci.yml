@@ -79,7 +79,7 @@ jobs:
       steps:
         - name: ssh-login
           run: |
-            echo "${{ secrets.EC2_KEY }}" > private-key
+            echo "${{ secrets.EC2_SSH_KEY }}" > private-key
             chmod 600 private-key"
   deploy-staging:
      needs: [ aws-login, Ssh-login ]
