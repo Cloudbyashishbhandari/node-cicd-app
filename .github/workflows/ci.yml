@@ -74,13 +74,13 @@ jobs:
             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             aws-region: eu-north-1
   Ssh-login:
-  needs: aws-login
-  runs-on: ubuntu-latest
-  steps:
-    - name: ssh-login
-      run: |
-        echo "${{ secrets.EC2_KEY }}" > private-key
-        chmod 600 private-key"
+      needs: aws-login
+      runs-on: ubuntu-latest
+      steps:
+        - name: ssh-login
+          run: |
+            echo "${{ secrets.EC2_KEY }}" > private-key
+            chmod 600 private-key"
   deploy-staging:
      needs: aws-login
      runs-on: ubuntu-latest
