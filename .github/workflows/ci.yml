@@ -73,19 +73,16 @@ jobs:
             aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             aws-region: eu-north-1
-  Ssh-login:
-      needs: aws-login
-      runs-on: ubuntu-latest
-      steps:
-        - name: ssh-login
-          run: |
-            echo "${{ secrets.EC2_SSH_KEY }}" > private-key
-            chmod 600 private-key
+  
   deploy-staging:
      needs: [ aws-login, Ssh-login ]
      runs-on: ubuntu-latest
      environment: staging-2 
      steps:
+        - name: ssh-login
+          run: |
+            echo "${{ secrets.EC2_SSH_KEY }}" > private-key
+            chmod 600 private-key
         - run: |
             ssh -o StrictHostKeyChecking=no -i private-key ubuntu@13.60.65.104 << 'EOF'
             sudo su
