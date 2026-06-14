@@ -1,9 +1,0 @@
-name: setup-ssh
-runs:
-   using: composite
-
-   steps:
-      - name: ssh-key
-        run: |
-          echo "${{ secrets.EC2_SSH_KEY }}" > ashish_login.pem 
-          chmod 600 ashish_login.pem
