@@ -61,8 +61,8 @@ jobs:
             password: ${{ secrets.DOCKER_PASSWORD }}
         - name: build docker image
           run: |
-            docker build -t ashish00234/node-app:v3.0 .
-            docker push ashish00234/node-app:v3.0 
+            docker build -t ashish00234/node-app-2:v3.0 .
+            docker push ashish00234/node-app-2:v3.0 
   aws-login:
     runs-on: ubuntu-latest
     needs: Docker-build
