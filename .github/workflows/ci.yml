@@ -61,8 +61,8 @@ jobs:
             password: ${{ secrets.DOCKER_PASSWORD }}
         - name: build docker image
           run: |
-            docker build -t ashish00234/node-app-2:v3.0 .
-            docker push ashish00234/node-app-2:v3.0 
+            docker build -t ashish00234/node-a2pp:v2.0 .
+            docker push ashish00234/node-app:v2.0 
   aws-login:
     runs-on: ubuntu-latest
     needs: Docker-build
@@ -86,9 +86,12 @@ jobs:
 
         - run: |
             ls -l
-            ssh -o StrictHostKeyChecking=no -i ashish_login.pem ubuntu@16.192.94.105 << 'EOF'
-            sudo docker pull ashish00234/node-app-2:v2.0
-            sudo docker run -d --name node-app-2 -p 3001:3000 ashish00234/node-app-2:v3.0
+            ssh -o StrictHostKeyChecking=no -i ashish_login.pem ubuntu@13.60.187.58 << 'EOF'
+            sudo su 
+            sudo cd /var/www/html
+            sudo apt install docker.io -y
+            sudo docker pull ashish00234/node-app:v2.0
+            sudo docker run -d --name node-app -p 3005:3000 ashish00234/node-app:v1.0
             EOF
   deploy-production:
      needs: [ deploy-staging, aws-login ]
