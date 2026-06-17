@@ -61,7 +61,7 @@ jobs:
             password: ${{ secrets.DOCKER_PASSWORD }}
         - name: build docker image
           run: |
-            docker build -t ashish00234/node-a2pp:v2.0 .
+            docker build -t ashish00234/node-app:v2.0 .
             docker push ashish00234/node-app:v2.0 
   aws-login:
     runs-on: ubuntu-latest
@@ -91,7 +91,7 @@ jobs:
             sudo cd /var/www/html
             sudo apt install docker.io -y
             sudo docker pull ashish00234/node-app:v2.0
-            sudo docker run -d --name node-app -p 3005:3000 ashish00234/node-app:v1.0
+            sudo docker run -d --name node-app -p 3005:3000 ashish00234/node-app:v2.0
             EOF
   deploy-production:
      needs: [ deploy-staging, aws-login ]
