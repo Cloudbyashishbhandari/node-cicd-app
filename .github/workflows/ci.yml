@@ -93,11 +93,11 @@ jobs:
             
             sudo docker stop node-app-3 || true
             sudo docker rm node-app-3 || true
-            sudo docker rmi ashish00234/node-app:v2.0 || true 
+            sudo docker rmi ashish00234/node-app-3:v4.0 || true 
 
             sudo docker stop node-app || true
             sudo docker rm node-app || true
-            sudo docker rmi ashish00234/node-app-3:v4.0 || true
+            sudo docker rmi ashish00234/node-app:v2.0 || true
 
             sudo docker pull ashish00234/node-app-3:v4.0
             sudo docker pull ashish00234/node-app-3:v4.0
