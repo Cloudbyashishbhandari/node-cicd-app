@@ -97,7 +97,7 @@ jobs:
 
             sudo docker stop node-app-3.1 || true
             sudo docker rm node-app-3.1 || true
-            sudo docker rmi ashish00234/node-app-3.1:v4.0 || true 
+            sudo docker rmi ashish00234/node-app-3.1:v5.0 || true 
 
             sudo docker stop node-app-3.2 || true
             sudo docker rm node-app-3.2 || true
@@ -120,8 +120,8 @@ jobs:
             
             sudo docker run -d --name node-app-3 -p 127.0.0.1:3005:3000 ashish00234/node-app-3:v5.0  
             sudo docker run -d --name node-app-3.1 -p 127.0.0.1:3006:3000 ashish00234/node-app-3:v5.0  
-            sudo docker run -d --name node-app-3.2 -p 127.0.0.1:3007:3000 ashish00234/node-app-3:v4.0
-            sudo docker run -d --name node-app-3.3 -p 127.0.0.1:3008:3000 ashish00234/node-app-3:v4.0    
+            sudo docker run -d --name node-app-3.2 -p 127.0.0.1:3007:3000 ashish00234/node-app-3:v5.0
+            sudo docker run -d --name node-app-3.3 -p 127.0.0.1:3008:3000 ashish00234/node-app-3:v5.0    
             EOF
   deploy-production:
      needs: [ deploy-staging, aws-login ]
