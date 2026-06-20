@@ -86,7 +86,7 @@ jobs:
 
         - run: |
             ls -l
-            ssh -o StrictHostKeyChecking=no -i ashish_login.pem ubuntu@13.60.227.54 << 'EOF'
+            ssh -o StrictHostKeyChecking=no -i ashish_login.pem ubuntu@16.171.176.47 << 'EOF'
             sudo su 
             sudo cd /var/www/html
             sudo apt install docker.io -y
