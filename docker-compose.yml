@@ -22,6 +22,6 @@ services:
        ME_CONFIG_MONGODB_ADMINPASSWORD: 00234
        ME_CONFIG_MONGODB_SERVER: mongodb
 
-  depends-on:
-     - "mongodb"
+    depends_on:
+      - "mongodb"
 
