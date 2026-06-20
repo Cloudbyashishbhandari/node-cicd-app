@@ -107,22 +107,27 @@ jobs:
             sudo docker rm node-app-3.3 || true
             sudo docker rmi ashish00234/node-app-3.3:v5.0 || true 
 
+
+            sudo docker-compose -f /app/docker-compose.ymi up -d       
+          # --scale simple-node-app=3
+
+
             
 
-            sudo docker stop node-app || true
-            sudo docker rm node-app || true
-            sudo docker rmi ashish00234/node-app:v2.0 || true
+          #sudo docker stop node-app || true
+          #sudo docker rm node-app || true
+          #sudo docker rmi ashish00234/node-app:v2.0 || true
 
-            sudo docker pull ashish00234/node-app-3:v5.0
-            sudo docker pull ashish00234/node-app-3:v4.0
-            
-            
-            
-            sudo docker run -d --name node-app-3 -p 127.0.0.1:3005:3000 ashish00234/node-app-3:v4.0  
-            sudo docker run -d --name node-app-3.1 -p 127.0.0.1:3006:3000 ashish00234/node-app-3:v5.0  
-            sudo docker run -d --name node-app-3.2 -p 127.0.0.1:3007:3000 ashish00234/node-app-3:v5.0
-            sudo docker run -d --name node-app-3.3 -p 127.0.0.1:3008:3000 ashish00234/node-app-3:v5.0    
-            EOF
+          #sudo docker pull ashish00234/node-app-3:v5.0
+          #sudo docker pull ashish00234/node-app-3:v4.0
+              
+              
+              
+          #sudo docker run -d --name node-app-3 -p 127.0.0.1:3005:3000 ashish00234/node-app-3:v4.0  
+          #sudo docker run -d --name node-app-3.1 -p 127.0.0.1:3006:3000 ashish00234/node-app-3:v5.0  
+          #sudo docker run -d --name node-app-3.2 -p 127.0.0.1:3007:3000 ashish00234/node-app-3:v5.0
+          #sudo docker run -d --name node-app-3.3 -p 127.0.0.1:3008:3000 ashish00234/node-app-3:v5.0    
+          #EOF
   deploy-production:
      needs: [ deploy-staging, aws-login ]
      runs-on: ubuntu-latest
@@ -133,7 +138,7 @@ jobs:
           with: 
             ssh-key: ${{ secrets.EC2_SSH_KEY }}
         - run: |
-            ssh -o StrictHostKeyChecking=no -i ashish_login.pem ubuntu@16.171.194.78 << 'EOF'
+            ssh -o StrictHostKeyChecking=no -i ashish_login.pem ubuntu@16.171.176.47 << 'EOF'
             sudo su
             sudo docker pull ashish00234/node-app-2:v2.0
             sudo docker run -d --name node-app-2 -p 3001:3000 ashish00234/node-app-2:v3.0
