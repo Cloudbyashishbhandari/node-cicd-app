@@ -89,9 +89,9 @@ jobs:
             scp -o StrictHostKeyChecking=no \
               -i ashish_login.pem \
               docker-compose.yml \
-              ubuntu@16.170.246.205:/home/ubuntu/
+              ubuntu@13.60.167.177:/home/ubuntu/
             
-            ssh -o StrictHostKeyChecking=no -i ashish_login.pem ubuntu@16.170.246.205 << 'EOF'
+            ssh -o StrictHostKeyChecking=no -i ashish_login.pem ubuntu@13.60.167.177 << 'EOF'
            
             sudo mv /home/ubuntu/docker-compose.yml /var/www/html/
             cd /var/www/html
