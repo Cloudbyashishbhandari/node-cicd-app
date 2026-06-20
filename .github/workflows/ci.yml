@@ -86,11 +86,14 @@ jobs:
 
         - run: |
             ls -l
+            scp -i ashish_login.pem \
+            docker-compose.yml \
+            ubuntu@16.171.176.47:/var/www/html/
+            
             ssh -o StrictHostKeyChecking=no -i ashish_login.pem ubuntu@16.171.176.47 << 'EOF'
             sudo su 
             sudo cd /var/www/html
             sudo apt install docker.io -y
-            
             sudo docker stop node-app-3 || true
             sudo docker rm node-app-3 || true
             sudo docker rmi ashish00234/node-app-3:v5.0 || true 
