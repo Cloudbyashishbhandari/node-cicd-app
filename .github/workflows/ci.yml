@@ -86,35 +86,50 @@ jobs:
 
         - run: |
             ls -l
+          
             scp -o StrictHostKeyChecking=no \
               -i ashish_login.pem \
               docker-compose.yml \
               ubuntu@13.60.167.177:/home/ubuntu/
+
+            ssh -o StrictHostKeyChecking=no \
+              -i ashish_login.pem \
+              ubuntu@13.60.167.177 \
+              "sudo mv /home/ubuntu/docker-compose.yml /var/www/html/ && \
+              cd /var/www/html && \
+              sudo apt install docker.io -y && \
+              sudo docker stop node-app-3 || true && \
+              sudo docker rm node-app-3 || true && \
+              sudo docker compose -f /var/www/html/docker-compose.yml up -d"
+          #scp -o StrictHostKeyChecking=no \
+          #  -i ashish_login.pem \
+          #  docker-compose.yml \
+          #  ubuntu@13.60.167.177:/home/ubuntu/
             
-            ssh -o StrictHostKeyChecking=no -i ashish_login.pem ubuntu@13.60.167.177 << 'EOF'
+          # ssh -o StrictHostKeyChecking=no -i ashish_login.pem ubuntu@13.60.167.177 << 'EOF'
            
-            sudo mv /home/ubuntu/docker-compose.yml /var/www/html/
-            cd /var/www/html
-            sudo apt install docker.io -y
-            sudo docker stop node-app-3 || true
-            sudo docker rm node-app-3 || true
-            sudo docker rmi ashish00234/node-app-3:v5.0 || true 
+          # sudo mv /home/ubuntu/docker-compose.yml /var/www/html/
+          # cd /var/www/html
+          # sudo apt install docker.io -y
+          # sudo docker stop node-app-3 || true
+          # sudo docker rm node-app-3 || true
+          # sudo docker rmi ashish00234/node-app-3:v5.0 || true 
 
-            sudo docker stop node-app-3.1 || true
-            sudo docker rm node-app-3.1 || true
-            sudo docker rmi ashish00234/node-app-3.1:v5.0 || true 
+          # sudo docker stop node-app-3.1 || true
+          # sudo docker rm node-app-3.1 || true
+          # sudo docker rmi ashish00234/node-app-3.1:v5.0 || true 
 
-            sudo docker stop node-app-3.2 || true
-            sudo docker rm node-app-3.2 || true
-            sudo docker rmi ashish00234/node-app-3.2:v5.0 || true 
+          # sudo docker stop node-app-3.2 || true
+          # sudo docker rm node-app-3.2 || true
+          # sudo docker rmi ashish00234/node-app-3.2:v5.0 || true 
 
-            sudo docker stop node-app-3.3 || true
-            sudo docker rm node-app-3.3 || true
-            sudo docker rmi ashish00234/node-app-3.3:v4.0 || true 
+          # sudo docker stop node-app-3.3 || true
+          # sudo docker rm node-app-3.3 || true
+          # sudo docker rmi ashish00234/node-app-3.3:v4.0 || true 
 
 
-            sudo docker compose -f /var/www/html/docker-compose.yml up -d  
-            EOF     
+          # sudo docker compose -f /var/www/html/docker-compose.yml up -d  
+          # EOF     
           # --scale simple-node-app=3
 
 
