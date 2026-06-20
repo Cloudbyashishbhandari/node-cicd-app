@@ -108,7 +108,7 @@ jobs:
             sudo docker rmi ashish00234/node-app-3.3:v4.0 || true 
 
 
-            sudo docker-compose -f /app/docker-compose.yml up -d  
+            sudo docker compose -f /app/docker-compose.yml up -d  
             EOF     
           # --scale simple-node-app=3
 
