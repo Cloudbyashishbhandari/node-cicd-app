@@ -89,11 +89,12 @@ jobs:
             scp -o StrictHostKeyChecking=no \
               -i ashish_login.pem \
               docker-compose.yml \
-              ubuntu@16.171.176.47:/var/www/html/
+              ubuntu@16.171.176.47:/home/ubuntu/
             
             ssh -o StrictHostKeyChecking=no -i ashish_login.pem ubuntu@16.171.176.47 << 'EOF'
-            sudo su 
-            sudo cd /var/www/html
+           
+            sudo mv /home/ubuntu/docker-compose.yml /var/www/html/
+            cd /var/www/html
             sudo apt install docker.io -y
             sudo docker stop node-app-3 || true
             sudo docker rm node-app-3 || true
