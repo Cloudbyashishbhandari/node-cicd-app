@@ -3,24 +3,25 @@ services:
   simple-node-app:
     image: ashish00234/node-app-3:v5.0 
     container_name: node-app-3
-    ports: 
-       - 3005:3000
-  mongodb:
-    image: mongo 
     ports:
-        - 27017:27017
+      - 3005:3000
+  mongo:
+    image: mongo
+    restart: always
     environment:
-       MONGO_INITDB_ROOT_USERNAME: ashish
-       MONGO_INITDB_ROOT_PASSWORD: 00234
+      MONGO_INITDB_ROOT_USERNAME: ashish
+      MONGO_INITDB_ROOT_PASSWORD: "00234"
 
   mongo-express:
-    image: mongo-express
+    image: mongo-express          
+    restart: always
     ports:
-        - 8081:8081
+      - 8081:8081
     environment:
-       ME_CONFIG_MONGODB_ADMINUSERNAME: ashish
-       ME_CONFIG_MONGODB_ADMINPASSWORD: 00234
-       ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ashish
+      ME_CONFIG_MONGODB_ADMINPASSWORD: "00234"
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_SITE_BASEURL: /mongo-express       
 
     depends_on:
       - "mongodb"
