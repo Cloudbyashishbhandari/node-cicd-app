@@ -5,7 +5,6 @@ services:
     container_name: node-app-3
     ports:
       - 3005:3000
- services:
   mongo:
     image: mongo:7.0
     ports:
