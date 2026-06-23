@@ -5,38 +5,36 @@ services:
     container_name: node-app-3
     ports:
       - 3005:3000
+ services:
   mongo:
     image: mongo:7.0
     ports:
-      - 27017:27017
+      - "27017:27017"
     secrets:
-        - mongodb_username
-        - mongodb_password
+      - mongodb_username
+      - mongodb_password
     environment:
-      MONGO_INITDB_ROOT_USERNAME: /run/secrets/mongodb_username
-      MONGO_INITDB_ROOT_PASSWORD: /run/secrets/mongodb_password
+      MONGO_INITDB_ROOT_USERNAME_FILE: /run/secrets/mongodb_username
+      MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/mongodb_password
 
   mongo-express:
-    image: mongo-express          
+    image: mongo-express
     ports:
-      - 8081:8081
+      - "8081:8081"
     secrets:
-        - mongodb_username
-        - mongodb_password
+      - mongodb_username
+      - mongodb_password
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: /run/secrets/mongodb_username 
-      ME_CONFIG_MONGODB_ADMINPASSWORD: /run/secrets/mongodb_password
+      ME_CONFIG_MONGODB_ADMINUSERNAME_FILE: /run/secrets/mongodb_username
+      ME_CONFIG_MONGODB_ADMINPASSWORD_FILE: /run/secrets/mongodb_password
       ME_CONFIG_MONGODB_SERVER: mongo
-      ME_CONFIG_SITE_BASEURL: /mongo-express       
-
+      ME_CONFIG_SITE_BASEURL: /mongo-express
     depends_on:
-      - "mongo"
+      - mongo
 
-    secrets:
-       mongodb_username: 
-            file: ./secrets/mongobd_username.txt
+secrets:
+  mongodb_username:
+    file: ./secrets/mongodb_username.txt
 
-    secrets:
-       mongodb_password: 
-            file: ./secrets/mongobd_password.txt
-
+  mongodb_password:
+    file: ./secrets/mongodb_password.txt
