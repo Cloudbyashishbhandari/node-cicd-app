@@ -9,20 +9,34 @@ services:
     image: mongo:7.0
     ports:
       - 27017:27017
+    secrets:
+        - mongodb_username
+        - mongodb_password
     environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USER_NAME}
-      MONGO_INITDB_ROOT_PASSWORD:  ${MONGODB_PASSWORD}
+      MONGO_INITDB_ROOT_USERNAME: /run/secrets/mongodb_username
+      MONGO_INITDB_ROOT_PASSWORD: /run/secrets/mongodb_password
 
   mongo-express:
     image: mongo-express          
     ports:
       - 8081:8081
+    secrets:
+        - mongodb_username
+        - mongodb_password
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGODB_USER_NAME} 
-      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGODB_PASSWORD}
+      ME_CONFIG_MONGODB_ADMINUSERNAME: /run/secrets/mongodb_username 
+      ME_CONFIG_MONGODB_ADMINPASSWORD: /run/secrets/mongodb_password
       ME_CONFIG_MONGODB_SERVER: mongo
       ME_CONFIG_SITE_BASEURL: /mongo-express       
 
     depends_on:
       - "mongo"
+
+    secrets:
+       mongodb_username: 
+            file: ./secrets/mongobd_username.txt
+
+    secrets:
+       mongodb_password: 
+            file: ./secrets/mongobd_password.txt
 
